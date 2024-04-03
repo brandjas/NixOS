@@ -1,5 +1,14 @@
 { config, pkgs, ... }:
 
+let
+  desktop = "gnome";
+in
+
+# Conditionally use GNOME or KDE Plasma. Raise an error if desktop is neither.
+assert desktop == "gnome" || desktop == "kde";
+let desktopManager = if desktop == "gnome" then "gnome" else "plasma6"; in
+let displayManager = if desktop == "gnome" then "gdm" else "sddm"; in
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -80,9 +89,9 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # Install window manager and desktop environment.
+  services.xserver.displayManager.${displayManager}.enable = true;
+  services.xserver.desktopManager.${desktopManager}.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -116,11 +125,12 @@
     packages = with pkgs; [
       btop
       firefox
-      gnome.gnome-software
       htop
       nvtop
       tmux
       usbutils
+    ] ++ lib.optionals (desktop == "gnome") [
+      gnome.gnome-software
     ];
   };
 
@@ -165,12 +175,14 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
-    gnomeExtensions.appindicator
     vim
     vscode
+  ] ++ lib.optionals (desktop == "gnome") [
+    gnomeExtensions.appindicator
   ];
 
   services.udev.packages = with pkgs; [
+  ] ++ lib.optionals (desktop == "gnome") [
     gnome.gnome-settings-daemon
   ];
 
