@@ -86,6 +86,11 @@ let displayManager = if desktop == "gnome" then "gdm" else "sddm"; in
     LC_TIME = "nl_NL.UTF-8";
   };
 
+  # Enable bluetooth
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
