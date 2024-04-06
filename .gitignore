@@ -1,5 +1,8 @@
 # Symlink to machine-specific settings
 local-machine
 
+# Configuration options that shouldn't be public
+confidential-options.nix
+
 # VSCode stuff
 *.code-workspace

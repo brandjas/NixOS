@@ -2,6 +2,7 @@
 
 let
   machineOptions = import ./local-machine/options.nix;
+  confidentialOptions = import ./local-machine/confidential-options.nix;
 in
 
 # Conditionally use GNOME or KDE Plasma. Raise an error if desktop is neither.
@@ -150,30 +151,7 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
 
   services.flatpak.enable = true;
 
-  services.syncthing = {
-    enable = true;
-    user = "jasper";
-    dataDir = "/home/jasper/st";
-    configDir = "/home/jasper/st/.config/syncthing";
-    overrideDevices = true;
-    overrideFolders = true;
-    settings = {
-      devices = {
-        ***REMOVED*** = { id = ***REMOVED***; };
-        ***REMOVED*** = { id = ***REMOVED***; };
-      };
-      folders = {
-        ***REMOVED*** = {
-          label = "Documents";
-          path = "/home/jasper/st/Documents";
-          devices = [
-            ***REMOVED***
-            ***REMOVED***
-          ];
-        };
-      };
-    };
-  };
+  services.syncthing = confidentialOptions.syncthingSettings;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
