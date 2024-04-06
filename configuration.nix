@@ -12,7 +12,7 @@ let displayManager = if desktop == "gnome" then "gdm" else "sddm"; in
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./machines/workstation/hardware-configuration.nix
+      ./local-machine/hardware-configuration.nix
     ];
 
   # Enable OpenGL

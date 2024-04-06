@@ -1,2 +1,5 @@
+# Symlink to machine-specific settings
+local-machine
+
 # VSCode stuff
 *.code-workspace
