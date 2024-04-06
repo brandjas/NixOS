@@ -1,13 +1,13 @@
 { config, pkgs, ... }:
 
 let
-  desktop = "gnome";
+  machineOptions = import ./local-machine/options.nix;
 in
 
 # Conditionally use GNOME or KDE Plasma. Raise an error if desktop is neither.
-assert desktop == "gnome" || desktop == "kde";
-let desktopManager = if desktop == "gnome" then "gnome" else "plasma6"; in
-let displayManager = if desktop == "gnome" then "gdm" else "sddm"; in
+assert machineOptions.desktop == "gnome" || machineOptions.desktop == "kde";
+let desktopManager = if machineOptions.desktop == "gnome" then "gnome" else "plasma6"; in
+let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"; in
 
 {
   imports =
@@ -134,7 +134,7 @@ let displayManager = if desktop == "gnome" then "gdm" else "sddm"; in
       nvtop
       tmux
       usbutils
-    ] ++ lib.optionals (desktop == "gnome") [
+    ] ++ lib.optionals (machineOptions.desktop == "gnome") [
       gnome.gnome-software
     ];
   };
@@ -182,12 +182,12 @@ let displayManager = if desktop == "gnome" then "gdm" else "sddm"; in
     git
     vim
     vscode
-  ] ++ lib.optionals (desktop == "gnome") [
+  ] ++ lib.optionals (machineOptions.desktop == "gnome") [
     gnomeExtensions.appindicator
   ];
 
   services.udev.packages = with pkgs; [
-  ] ++ lib.optionals (desktop == "gnome") [
+  ] ++ lib.optionals (machineOptions.desktop == "gnome") [
     gnome.gnome-settings-daemon
   ];
 
