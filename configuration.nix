@@ -61,7 +61,6 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices."luks-f4242063-fd5f-4317-81f6-519298a39506".device = "/dev/disk/by-uuid/f4242063-fd5f-4317-81f6-519298a39506";
   networking.hostName = "nixos";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
