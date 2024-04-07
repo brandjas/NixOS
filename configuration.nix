@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   machineOptions = import ./local-machine/options.nix;
@@ -24,9 +24,9 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = lib.mkIf machineOptions.nvidia ["nvidia"];
 
-  hardware.nvidia = {
+  hardware.nvidia = lib.mkIf machineOptions.nvidia {
 
     # Modesetting is required.
     modesetting.enable = true;
@@ -131,11 +131,12 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
       btop
       firefox
       htop
-      nvtop
       tmux
       usbutils
     ] ++ lib.optionals (machineOptions.desktop == "gnome") [
       gnome.gnome-software
+    ] ++ lib.optionals machineOptions.nvidia [
+      nvtop
     ];
   };
 

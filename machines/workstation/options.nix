@@ -1,3 +1,4 @@
 {
   desktop = "gnome";
+  nvidia = true;
 }
