@@ -119,7 +119,10 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
   };
 
   programs.zsh.enable = true;
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableNvidia = machineOptions.nvidia;
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jasper = {
