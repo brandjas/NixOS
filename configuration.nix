@@ -131,9 +131,14 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
     extraGroups = [ "networkmanager" "wheel" "docker" "adbusers" "plugdev" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
+      bat
       btop
+      dust
       firefox
+      fzf
       htop
+      kitty
+      tldr
       tmux
       usbutils
     ] ++ lib.optionals (machineOptions.desktop == "gnome") [
