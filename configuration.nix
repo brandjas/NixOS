@@ -131,6 +131,7 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
     extraGroups = [ "networkmanager" "wheel" "docker" "adbusers" "plugdev" ];
     shell = pkgs.zsh;
     packages = with pkgs; [
+      anki
       bat
       btop
       dust
@@ -138,8 +139,11 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
       fzf
       htop
       kitty
+      rmtrash
+      thefuck
       tldr
       tmux
+      trash-cli
       usbutils
     ] ++ lib.optionals (machineOptions.desktop == "gnome") [
       gnome.gnome-software
