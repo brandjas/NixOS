@@ -61,6 +61,7 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.systemd.enable = true;
 
   networking.hostName = machineOptions.hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
