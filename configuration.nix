@@ -139,6 +139,7 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
       firefox
       fzf
       htop
+      mangohud
       kitty
       rmtrash
       thefuck
@@ -157,6 +158,7 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
   nixpkgs.config.allowUnfree = true;
 
   programs.steam.enable = true;
+  programs.gamemode.enable = true;
 
   programs._1password.enable = true;
   programs._1password-gui = {
