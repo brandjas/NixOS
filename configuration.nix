@@ -174,7 +174,7 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
   environment.systemPackages = with pkgs; [
     git
     vim
-    vscode
+    vscode.fhs
   ] ++ lib.optionals (machineOptions.desktop == "gnome") [
     gnomeExtensions.appindicator
   ];
