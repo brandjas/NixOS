@@ -137,6 +137,7 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
       fzf
       htop
       mangohud
+      nextcloud-client
       kitty
       rmtrash
       thefuck
