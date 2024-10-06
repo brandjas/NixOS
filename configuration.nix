@@ -122,6 +122,8 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
     enableNvidia = machineOptions.nvidia;
   };
 
+  hardware.nvidia-container-toolkit.enable = machineOptions.nvidia;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.jasper = {
     isNormalUser = true;
