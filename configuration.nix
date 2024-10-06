@@ -17,9 +17,7 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
     ];
 
   # Enable OpenGL
-  hardware.opengl = {
-    enable = true;
-  };
+  hardware.graphics.enable = true;
 
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = lib.mkIf machineOptions.nvidia ["nvidia"];
@@ -98,9 +96,9 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
   services.xserver.desktopManager.${desktopManager}.enable = true;
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Enable CUPS to print documents.
@@ -148,9 +146,9 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
       trash-cli
       usbutils
     ] ++ lib.optionals (machineOptions.desktop == "gnome") [
-      gnome.gnome-software
+      gnome-software
     ] ++ lib.optionals machineOptions.nvidia [
-      nvtop
+      nvtopPackages.full
     ];
   };
 
@@ -181,7 +179,7 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
 
   services.udev.packages = with pkgs; [
   ] ++ lib.optionals (machineOptions.desktop == "gnome") [
-    gnome.gnome-settings-daemon
+    gnome-settings-daemon
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
