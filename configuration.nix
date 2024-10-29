@@ -139,12 +139,14 @@ let displayManager = if machineOptions.desktop == "gnome" then "gdm" else "sddm"
       mangohud
       nextcloud-client
       kitty
+      remmina
       rmtrash
       thefuck
       tldr
       tmux
       trash-cli
       usbutils
+      wakeonlan
     ] ++ lib.optionals (machineOptions.desktop == "gnome") [
       gnome-software
     ] ++ lib.optionals machineOptions.nvidia [
